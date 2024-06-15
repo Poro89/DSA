@@ -4,27 +4,30 @@
 #include "queue.h"
 
 //typedef struct node{
-//	int data;
-//	struct node* next;
+//int data;
+//struct node* next;
 //}Node, NodePtr*;
 
 //typedef struct{
-//	NodePtr front;
-//	NodePtr rear;
+//NodePtr front;
+//NodePtr rear;
 //}Queue;
 
-
 void initQueue(Queue *Q){
-	Q->front = NULL;
-	Q->rear = NULL;
+Q->front = NULL;
+Q->rear = NULL;
+}
+
+bool isEmpty(Queue Q){
+return Q.front == NULL;
 }
 
 bool Enqueue(Queue *Q, int data){
-	NodePtr newNode = (NodePtr)malloc(sizeof(Node));
-	if (newNode == NULL){
-		return false;
-	}
-	newNode->data = data;
+NodePtr newNode = (NodePtr)malloc(sizeof(Node));
+if (newNode == NULL){
+return false;
+}
+newNode->data = data;
     newNode->next = NULL;
 
     if (isEmpty(*Q)) {
@@ -37,22 +40,18 @@ bool Enqueue(Queue *Q, int data){
     return true;
 }
 bool Dequeue(Queue *Q){
-	NodePtr temp = Q->front;
+NodePtr temp = Q->front;
     Q->front = Q->front->next;
     free(temp);
     if (Q->front == NULL) {
         Q->rear = NULL; 
-    }	
+    }
 }
 int Front(Queue Q){
-	return Q.front->data;
+return Q.front->data;
 }
 int Rear(Queue Q){
-	return Q.rear->data;
-}
-
-bool isEmpty(Queue Q){
-	return Q->front == NULL;
+return Q.rear->data;
 }
 
 void display(Queue Q){
@@ -66,7 +65,7 @@ void display(Queue Q){
 }
 
 Queue getEvenNumbers(Queue *Q){
-	Queue evenQueue;
+Queue evenQueue;
     initQueue(&evenQueue); 
     
     NodePtr current = Q->front;
@@ -78,5 +77,4 @@ Queue getEvenNumbers(Queue *Q){
     }
 
     return evenQueue;
-}
 }
