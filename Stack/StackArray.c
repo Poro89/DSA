@@ -3,6 +3,10 @@
 #include <stdbool.h>
 #include "StackArray.h"
 
+//typedef struct{
+//	int data[MAX];
+//	int top;
+//}StackArrayList;
 
 void initStack(StackArrayList *s){
 	s->top = -1;
@@ -46,18 +50,41 @@ bool isFull(StackArrayList s){
 }
 
 void display(StackArrayList s){
-    if (isEmpty(s)) {
-        printf("Stack is empty.\n");
-        return;
-    }
-    printf("Stack elements: ");
-    for (int i = 0; i <= s.top; i++){
+	int i;
+    for ( i = 0; i <= s.top; i++){
         printf("%d ", s.data[i]);
     }
     printf("\n");	
 }
 
 void visualize(StackArrayList s){
-	
+	int i;
+    printf("Stack (top to bottom): ");
+    for ( i = s.top; i >= 0; i--){
+        printf("%d ", s.data[i]);
+    }
+    printf("\n");    
+}	
+StackArrayList extractEvenNumbers(StackArrayList *s) {
+    StackArrayList evenStack = createStack();
+    StackArrayList tempStack = createStack();
+    
+    while (!isEmpty(*s)) {
+        int elem = stack_peek(*s);
+        stack_pop(s);
+        if (elem % 2 == 0) {
+            stack_push(&evenStack, elem);
+        } else {
+            stack_push(&tempStack, elem);
+        }
+    }
+
+    while (!isEmpty(tempStack)) {
+        int elem = stack_peek(tempStack);
+        stack_pop(&tempStack);
+        stack_push(s, elem);
+    }
+
+    return evenStack;
 }
 
